@@ -1,0 +1,153 @@
+ 
+
+body {
+    background-image: url('warehouse.png');
+    background-position: center;
+    background-size: cover;
+    --accent-color: black;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-wrapper {
+    width: 100%;
+    max-width: 700px;
+    padding: 20px;
+}
+
+.login-box {
+   background: linear-gradient(135deg, #eedd1b 0%, #0b13f8a6 100%);
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    
+}
+
+.logo-icon {
+    width: 60px;
+    height: 60px;
+    background: #eff6ff;
+    color: black;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    margin: 0 auto 20px;
+}
+
+.login-header h2 {
+    margin: 0;
+    color:black;
+    font-size: 24px;
+}
+
+.login-header p {
+    color: black;
+    font-size: 14px;
+    margin: 10px 0 30px;
+}
+
+.input-field {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.input-field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: black;
+    margin-bottom: 8px;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper i {
+    position: absolute;
+    left: 15px;
+    color: black;
+    
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 12px 12px 12px 45px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 14px;
+    transition: 0.3s;
+    outline: none;
+}
+
+.input-wrapper input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px rgba(44, 118, 238, 0.351);
+}
+
+
+.login-options {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 25px;
+    color: black;
+}
+
+.login-options a {
+    color: black;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 14px;
+   background: #1e293b;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+    background: #435a80;
+    transform: translateY(-2px);
+}
+
+.login-footer {
+    margin-top: 25px;
+    font-size: 14px;
+    color: black;
+}
+
+.login-footer a {
+    color: black;
+    text-decoration: none;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+
+
+

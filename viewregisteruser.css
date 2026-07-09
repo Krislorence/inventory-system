@@ -1,0 +1,111 @@
+
+body {
+background-color: #0b13f8a6;
+    padding: 20px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.main-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: #eedd1b ;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #eee;
+     border-top: 2px solid #eee;
+      border-right: 2px solid #eee;
+       border-left: 2px solid #eee;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #eedd1b 0%, #0b13f8a6 100%); 
+    border-radius: 8px;
+}
+.main-header p {
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+    margin: 0;
+}
+.btn-add {
+    background: #28a745;
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-left: 4px;
+}
+.btn-add:hover{
+    background: rgba(245, 245, 245, 0.399);
+    transform: translateY(-2px);
+}
+.my-table {
+    width: 100%;
+    border-collapse: collapse; 
+    margin-top: 10px;
+}
+
+
+.my-table {
+    border: 2px solid #333; 
+}
+
+.my-table th, 
+.my-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #333; 
+}
+
+.my-table th {
+    background-color: rgba(0, 0, 255, 0.882);
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 13px;
+    color: white;
+}
+
+.my-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.header-tools {
+    display: flex;
+    gap: 10px;
+}
+
+.search-box {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.search-box:hover{
+    background: whitesmoke;
+    transform: translateY(-2px);
+
+}
+
+
+.search-box input {
+    padding: 8px;
+    border: none;
+    outline: none;
+}
+
+.search-box button {
+    padding: 8px 12px;
+    background: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
