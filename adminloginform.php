@@ -7,15 +7,15 @@ if (isset($_POST['login_btn'])) {
     $username = mysqli_real_escape_string($conn, trim($_POST['username']));
     $password = mysqli_real_escape_string($conn, trim($_POST['password']));
 
-    $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+    $sql = "SELECT * FROM userr WHERE username='$username' AND password='$password'";
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) > 0) {
         $_SESSION['user'] = $username;
-        header("Location: viewregisteruser.php");
+        header("Location: dashboardforadmin.php");
         exit();
     } else {
-        echo  "<script>alert('baliw mali username/pass mo!');</script>";
+        echo  "<script>alert('loko mali username/pass mo!');</script>";
     }
 }
 ?>

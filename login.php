@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "database.php";
+include "db.php";
 
 $error = "";
 
@@ -9,15 +9,15 @@ if (isset($_POST['login_btn'])) {
     $password = mysqli_real_escape_string($conn, trim($_POST['password']));
     $fullname = mysqli_real_escape_string($conn, trim($_POST['fullname']));
 
-    $sql = "SELECT * FROM users_tb WHERE username='$username' AND pssword='$password' AND fullname='$fullname'";
+    $sql = "SELECT * FROM userss WHERE username='$username' AND password='$password' AND fullname='$fullname'";
     $result = mysqli_query($conn, $sql);
 
-    if (mysqli_num_rows($result) > 0) {
+    if ($result && mysqli_num_rows($result) > 0) {
         $_SESSION['user'] = $username;
         header("Location: index.php");
         exit();
     } else {
-        echo  "<script>alert('baliw mali username/pass mo!');</script>";
+        $error = "Enggg Maliiiii ang Username, Fullname, o Password Mooo!";
     }
 }
 ?>
@@ -26,7 +26,7 @@ if (isset($_POST['login_btn'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login KRIS Nexus Inventory System</title>
+    <title>LoginForm</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="login.css">
 </head>
@@ -34,12 +34,15 @@ if (isset($_POST['login_btn'])) {
     <div class="login-wrapper">
         <div class="login-box">
             <div class="login-header">
-                <div class="logo-icon">
-                    <img src="logo.png" alt="Logo" style="width: 100px;  vertical-align: middle; margin-left: 0;">
-                </div>
-                <h2>Welcome </h2>
-                <p>Please sign in.</p>
+                <h2>Welcome</h2>
+                <p>Please Login your Registered Account.</p>
             </div>
+
+            <?php if (!empty($error)): ?>
+                <div style="background-color: rgba(220, 38, 38, 0.72); color: #f1f1f1; border: 1px solid rgba(230, 26, 26, 0.88); padding: 10px 14px; border-radius: 10px; margin-bottom: 20px; font-size: 13px; text-align: left;">
+                    <i class="fa-solid fa-circle-exclamation"></i> <?= $error ?>
+                </div>
+            <?php endif; ?>
 
             <form action="login.php" method="POST">
                 <div class="input-field">
@@ -51,13 +54,12 @@ if (isset($_POST['login_btn'])) {
                 </div>
 
                 <div class="input-field">
-                        <label>Fullname</label>
-                        <div class="input-wrapper">
-                        <i class="fa-solid fa-user"></i>
-                        <input type="fullname" name="fullname" placeholder="Enter your Fullname" required>
+                    <label>Fullname</label>
+                    <div class="input-wrapper">
+                       <i class="fa-solid fa-user"></i>
+                        <input type="text" name="fullname" placeholder="Enter your Fullname" required>
                     </div>
                 </div>
-
 
                 <div class="input-field">
                     <label>Password</label>
@@ -78,8 +80,7 @@ if (isset($_POST['login_btn'])) {
             </form>
 
             <div class="login-footer">
-                <p>Don't have an account? <a href="https://www.facebook.com/krislorence.chan">Contact our Admin</a></p>
-            
+                <p>Don't have an account? <a href="https://www.facebook.com/krislorence.chan" target="_blank">Contact our Admin</a></p>
             </div>
         </div>
     </div>

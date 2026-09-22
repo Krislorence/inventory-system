@@ -11,13 +11,13 @@ if (isset($_POST['register_btn'])) {
     if (empty($username) || empty($password)) {
         $error = "Please fill all fields!";
     } else {
-        $check = mysqli_query($conn, "SELECT * FROM users_tb WHERE username='$username'");
+        $check = mysqli_query($conn, "SELECT * FROM userss WHERE username='$username'");
         if (mysqli_num_rows($check) > 0) {
             $error = "Username already exists!";
         } else {
-            $sql = "INSERT INTO users_tb (username, pssword) VALUES ('$username', '$password', '$fullname')";
+            $sql = "INSERT INTO userss (username, password) VALUES ('$username', '$password', '$fullname')";
             if (mysqli_query($conn, $sql)) {
-                echo "<script>alert('Registered successfully!'); window.location='login.php';</script>";
+                echo "<script>alert('Registered kana!'); window.location='login.php';</script>";
             } else {
                 $error = "Registration failed: " . mysqli_error($conn);
             }
@@ -41,11 +41,8 @@ if (isset($_POST['register_btn'])) {
     <div class="login-wrapper">
         <div class="login-box">
             <div class="login-header">
-                <div class="logo-icon">
-                    <img src="logo.png" alt="Logo" style="width: 100px;  vertical-align: middle; margin-left: 0;">
-                </div>
                 <h2>Create New Account</h2>
-                <p>Welcome to KRIS Nexus Inventory.</p>
+                <p>Welcome to our Inventory System.</p>
             </div>
 
             <form action="register.php" method="POST">
@@ -72,10 +69,6 @@ if (isset($_POST['register_btn'])) {
                         <input type="password" name="password" placeholder="Create a password" required>
                     </div>
                 </div>
-
-                 
-
-
                 <div class="input-field">
                     <label>Confirm Password</label>
                     <div class="input-wrapper">

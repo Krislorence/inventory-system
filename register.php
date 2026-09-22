@@ -11,13 +11,13 @@ if (isset($_POST['register_btn'])) {
     if (empty($username) || empty($password) || empty($fullname)) {
         $error = "Please fill all fields!";
     } else {
-        $check = mysqli_query($conn, "SELECT * FROM users_tb WHERE username='$username' AND pssword='$password' AND fullname='$fullname'");
+        $check = mysqli_query($conn, "SELECT * FROM userss WHERE username='$username' AND password='$password' AND fullname='$fullname'");
         if (mysqli_num_rows($check) > 0) {
             $error = "Username already exists!";
         } else {
-            $sql = "INSERT INTO users_tb (username, pssword, fullname) VALUES ('$username', '$password', '$fullname')";
+            $sql = "INSERT INTO userss (username, password, fullname) VALUES ('$username', '$password', '$fullname')";
             if (mysqli_query($conn, $sql)) {
-                echo "<script>alert('Registered successfully!'); window.location='login.php';</script>";
+                echo "<script>alert('Registered successfully!'); window.location='index.php';</script>";
             } else {
                 $error = "Registration failed: " . mysqli_error($conn);
             }
@@ -41,11 +41,8 @@ if (isset($_POST['register_btn'])) {
     <div class="login-wrapper">
         <div class="login-box">
             <div class="login-header">
-                <div class="logo-icon">
-                    <img src="logo.png" alt="Logo" style="width: 100px;  vertical-align: middle; margin-left: 0;">
-                </div>
                 <h2>Create Your Account</h2>
-                <p>Welcome to KRIS Nexus Inventory.</p>
+                <p>Welcome to our Inventory.</p>
             </div>
 
             <form action="register.php" method="POST">
