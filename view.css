@@ -6,7 +6,9 @@
 }
 
 body {
-    background-color: #f8fafc;
+    background-image: url('back.webp');
+    background-position: center;
+    background-size: cover;
     color: #0f172a;
     width: 100vw;
     height: 100vh;
@@ -17,18 +19,20 @@ body {
     display: flex;
     width: 100vw;
     height: 100vh;
-    background: white;
+    background: transparent;
     overflow: hidden;
 }
 
 .app-container .main-content {
-    background-color: rgba(10, 155, 22, 0.64);
+    background-image: url('back.webp');
+    background-position: center;
+    background-size: cover;
 }
 
 .sidebar {
     width: 260px;
     height: 100%;
-    background: #ffffff;
+    background: linear-gradient(rgba(0, 0, 255, 0.611),  rgba(255, 255, 0, 0.638));
     border-right: 1px solid #f0f0f0;
     padding: 28px 20px;
     display: flex;
@@ -36,27 +40,12 @@ body {
     justify-content: space-between;
     flex-shrink: 0;
 }
-
-.brand-logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 30px;
-    padding-left: 10px;
-}
-
-.brand-logo h2 {
-    font-size: 18px;
-    font-weight: 700;
-    color: #1a1d1e;
-}
-
 .btn-new-item {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    background-color: rgba(0, 118, 228, 0.767);
+    background-color: rgba(255, 255, 0, 0.638);
     color: black;
     text-decoration: none;
     padding: 12px;
@@ -71,8 +60,8 @@ body {
 .btn-new-item:hover {
     color: black;
     transform: scale(1.1) translateY(-5px);
-    background-color: rgba(0, 118, 228, 0.64);
-    box-shadow: 0 0 25px rgba(0, 42, 228, 0.64);
+    background-color: white;
+    box-shadow: 0 0 25px rgba(247, 247, 246, 0.64);
 }
 
 .nav-menu {
@@ -83,6 +72,7 @@ body {
 }
 
 .nav-link {
+    background: rgba(191, 225, 20, 0.749) ;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -96,15 +86,16 @@ body {
 }
 
 .nav-link:hover, .nav-link.active {
-    color: black;
-    background-color: rgba(10, 155, 22, 0.64);
-    box-shadow: 0 0 15px rgba(0, 228, 34, 0.4);
+     color: black;
+    transform: scale(1.0) translateY(-3px);
+    background-color: white;
+    box-shadow: 0 0 25px rgba(212, 212, 214, 0.64);
 }
 .nav-link:hover{
     color: black;
-    background-color: rgba(10, 155, 22, 0.64);
-    box-shadow: 0 0 15px rgba(0, 228, 34, 0.4);
-    transform: scale(1.1) translateY(-5px);
+    transform: scale(1.0) translateY(-3px);
+    background-color: white;
+    box-shadow: 0 0 25px rgba(212, 212, 214, 0.64);
 }
 
 .sidebar-widget {
@@ -115,7 +106,7 @@ body {
 
 .sidebar-widget p {
     font-size: 12px;
-    color: white;
+    color: transparent;
 }
 
 .logout-link {
@@ -154,12 +145,18 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 28px;
+    background: linear-gradient(rgba(0, 0, 255, 0.45),  rgba(250, 250, 249, 0.851)); 
 }
 
-.user-greeting h1 {
-    font-size: 22px;
+.user-greeting h1  {
+   font-size: 22px;
     font-weight: 700;
     color: #0f172a;
+    
 }
 
 .search-box {
@@ -169,8 +166,8 @@ body {
 }
 
 .search-box input {
-    background: #1e293b;
-    color: #fff;
+    background: white;
+    color: black;
     border: none;
     padding: 10px 16px 10px 36px;
     border-radius: 20px;
@@ -182,11 +179,11 @@ body {
 .search-box i {
     position: absolute;
     left: 14px;
-    color: #94a3b8;
+    color: black;
     font-size: 12px;
 }
 .records-card {
-    background: #ffffff;
+    background:  rgba(250, 250, 249, 0.851);
     border-radius: 18px;
     padding: 24px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -235,7 +232,7 @@ body {
 }
 
 .my-table th {
-    background-color: #06a41edc;;
+    background: linear-gradient(rgba(0, 0, 255, 0.684),  rgba(250, 250, 249, 0.851));
     color: black;
     font-weight: 600;
     text-align: left;
@@ -252,8 +249,8 @@ body {
 
 .my-table tr:hover {
     color: black;
-    background-color: rgba(10, 155, 22, 0.64);
-    box-shadow: 0 0 25px rgba(0, 228, 34, 0.64);
+    background: rgba(255, 255, 255, 0.662);
+    box-shadow: 0 0 25px rgba(235, 238, 236, 0.64);
 }
 
 .badge {
@@ -309,7 +306,7 @@ body {
 .no-data-box {
     text-align: center;
     padding: 40px;
-    color: #94a3b8;
+    color: black;
 }
 
 .no-data-box i {
@@ -320,12 +317,14 @@ body {
 .app-footer {
     margin-top: auto;
     padding: 16px 24px;
-    background: #ffffff;
+    background: rgba(255, 255, 255, 0.477);
     border-radius: 12px;
+    border: 1px solid white;
     text-align: center;
 }
 
 .app-footer p {
     font-size: 12px;
     color: black;
+    font-weight: 500;
 }

@@ -1,9 +1,15 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['user'])) {
+    header("Location: register.php");
+    exit();
+}
 include "database.php";
 
 $search = isset($_GET['search']) ? mysqli_real_escape_string($conn, $_GET['search']) : '';
 $whereClause = $search ? "WHERE username LIKE '%$search%' OR password LIKE '%$search%' OR fullname LIKE '%$search%'" : "";
-$total_users_query = mysqli_query($conn, "SELECT COUNT(*) AS total FROM userss");
+$total_users_query = mysqli_query($conn, "SELECT COUNT(*) AS total FROM yuserr");
 $total_users = ($total_users_query) ? mysqli_fetch_assoc($total_users_query)['total'] : 0;
 ?>
 <!DOCTYPE html>
@@ -18,11 +24,7 @@ $total_users = ($total_users_query) ? mysqli_fetch_assoc($total_users_query)['to
 <body>
     <div class="app-container">
         <aside class="sidebar">
-            <div class="sidebar-top">
-                <div class="brand-logo">
-                    <h2>Inventory System</h2>
-                </div>
-
+            <div>
                 <a href="additemforadmin.php" class="btn-new-item">
                     <i class="fas fa-plus"></i> Add New Item
                 </a>
@@ -61,7 +63,7 @@ $total_users = ($total_users_query) ? mysqli_fetch_assoc($total_users_query)['to
             </div>
 
             <div class="sidebar-bottom">
-                <a href="login.php" class="logout-link">
+                <a href="logout.php" class="logout-link">
                     <i class="fas fa-right-from-bracket"></i> Logout
                 </a>
             </div>
@@ -108,7 +110,7 @@ $total_users = ($total_users_query) ? mysqli_fetch_assoc($total_users_query)['to
                         </thead>
                         <tbody>
                             <?php
-                            $sql = "SELECT * FROM userss $whereClause";
+                            $sql = "SELECT * FROM yuserr $whereClause";
                             $result = mysqli_query($conn, $sql);
                             
                             if ($result && mysqli_num_rows($result) > 0) {

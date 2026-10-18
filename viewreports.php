@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['user'])) {
+    header("Location: register.php");
+    exit();
+}
 $servername = "localhost:3306";
 $username = "root";
 $password = "";
@@ -10,20 +16,20 @@ if ($conn->connect_error) {
 }
 
 
-$lowStock = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as count FROM kangkong_tb WHERE quantity <= 5 AND quantity > 0"))['count'] ?? 0;
-$outOfStock = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as count FROM kangkong_tb WHERE quantity = 0"))['count'] ?? 0;
-$totalValue = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(quantity * price) as total FROM kangkong_tb"))['total'] ?? 0;
+$lowStock = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as count FROM kriskong_tb WHERE quantity <= 5 AND quantity > 0"))['count'] ?? 0;
+$outOfStock = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as count FROM kriskong_tb WHERE quantity = 0"))['count'] ?? 0;
+$totalValue = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(quantity * price) as total FROM kriskong_tb"))['total'] ?? 0;
 
-$sql = "SELECT id, item_name, category, quantity, price, last_updated, updated_by FROM kangkong_tb";
+$sql = "SELECT id, item_name, category, quantity, price, last_updated, updated_by FROM kriskong_tb";
 $result = $conn->query($sql);
 
-$total_value_query = "SELECT SUM(quantity * price) AS total_val FROM kangkong_tb";
+$total_value_query = "SELECT SUM(quantity * price) AS total_val FROM kriskong_tb";
 $total_result = $conn->query($total_value_query);
 $total_row = $total_result->fetch_assoc();
 
-$lowStockItems = mysqli_query($conn, "SELECT item_name, category, quantity, price FROM kangkong_tb WHERE quantity <= 5 AND quantity > 0 ORDER BY quantity ASC");
-$outOfStockItems = mysqli_query($conn, "SELECT item_name, category, price FROM kangkong_tb WHERE quantity = 0 ORDER BY item_name ASC");
-$topValueItems = mysqli_query($conn, "SELECT item_name, category, quantity, price, (quantity * price) AS total_item_value FROM kangkong_tb ORDER BY total_item_value DESC LIMIT 5");
+$lowStockItems = mysqli_query($conn, "SELECT item_name, category, quantity, price FROM kriskong_tb WHERE quantity <= 5 AND quantity > 0 ORDER BY quantity ASC");
+$outOfStockItems = mysqli_query($conn, "SELECT item_name, category, price FROM kriskong_tb WHERE quantity = 0 ORDER BY item_name ASC");
+$topValueItems = mysqli_query($conn, "SELECT item_name, category, quantity, price, (quantity * price) AS total_item_value FROM kriskong_tb ORDER BY total_item_value DESC LIMIT 5");
 ?>
 
 <!DOCTYPE html>
@@ -40,9 +46,6 @@ $topValueItems = mysqli_query($conn, "SELECT item_name, category, quantity, pric
 <div class="app-layout">
     <aside class="sidebar">
         <div>
-            <div class="brand-logo">
-                <h2>Inventory System</h2>
-            </div>
 
             <a href="additem.php" class="btn-new-item">
                 <i class="fa-solid fa-plus"></i> New Item
@@ -84,11 +87,11 @@ $topValueItems = mysqli_query($conn, "SELECT item_name, category, quantity, pric
         </div>
 
         <div>
-            <a href="register.php" class="logout-link" onclick="return confirm('Sigurado ka bang gusto mong mag-logout?')">
+            <a href="logout.php" class="logout-link" onclick="return confirm('Sigurado ka bang gusto mong mag-logout?')">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
             </a>
         </div>
-    </aside>>
+    </aside>
     <main class="main-content">
         
         <header class="main-header">
@@ -114,7 +117,6 @@ $topValueItems = mysqli_query($conn, "SELECT item_name, category, quantity, pric
             </div>
         </div>
         <div class="stats-pwet">
-
             <div class="stat-cj low-stock">
                 <div class="card-icon">
                     <i class="fa-solid fa-box-open"></i>

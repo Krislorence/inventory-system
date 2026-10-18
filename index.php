@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit();
+}
+
 include "db.php";
     
 if(isset($_POST['save'])) {
@@ -9,7 +16,7 @@ if(isset($_POST['save'])) {
     $lastupdate = date('Y-m-d H:i:s');
     $updated_by = mysqli_real_escape_string($conn, $_POST['updated_by']);
 
-    $sql = "INSERT INTO kangkong_tb(item_name, category, quantity, price, last_updated, updated_by) 
+    $sql = "INSERT INTO kriskong_tb(item_name, category, quantity, price, last_updated, updated_by) 
             VALUES('$itemname', '$category', $quantity, $price, '$lastupdate', '$updated_by')";
     
     if(mysqli_query($conn, $sql)) {
@@ -18,10 +25,10 @@ if(isset($_POST['save'])) {
         $error = "Error: " . mysqli_error($conn);
     }
 }
-$totalProducts = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as count FROM kangkong_tb"))['count'] ?? 0;
-$lowStock = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as count FROM kangkong_tb WHERE quantity <= 5"))['count'] ?? 0;
-$outOfStock = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as count FROM kangkong_tb WHERE quantity = 0"))['count'] ?? 0;
-$totalValue = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(quantity * price) as total FROM kangkong_tb"))['total'] ?? 0;
+    $totalProducts = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as count FROM kriskong_tb"))['count'] ?? 0;
+    $lowStock = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as count FROM kriskong_tb WHERE quantity <= 5"))['count'] ?? 0;
+    $outOfStock = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as count FROM kriskong_tb WHERE quantity = 0"))['count'] ?? 0;
+    $totalValue = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(quantity * price) as total FROM kriskong_tb"))['total'] ?? 0;
 ?>
 
 <!DOCTYPE html>
@@ -39,9 +46,6 @@ $totalValue = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(quantity * pric
     <div class="app-container">
         <aside class="sidebar">
             <div>
-                <div class="brand-logo">
-                    <h2>Inventory System</h2>
-                </div>
 
                 <a href="additem.php" class="btn-new-item">
                     <i class="fa-solid fa-plus"></i> New Item
@@ -88,7 +92,7 @@ $totalValue = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(quantity * pric
                     <p class="widget-sub">All services operational.</p>
                 </div>
 
-                <a href="register.php" class="logout-link" onclick="return confirm('segurado kana dyan?')">
+                <a href="logout.php" class="logout-link" onclick="return confirm('segurado kana dyan?')">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
                 </a>
             </div>
@@ -97,12 +101,12 @@ $totalValue = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(quantity * pric
         <main class="main-content">
             <header class="top-bar">
                 <div class="user-greeting">
-                    <h1>Dashboard Overview</h1>
-                    <p style="color: black;"><?= date('F d, Y') ?></p>
+                    <h1 >Dashboard Overview </h1>
+                    <p><?= date('F d, Y') ?></p>
                 </div>
             </header>
 
-            <section class="stats-banner" style="background-color: white;">
+            <section class="stats-banner">
                 <div class="stat-item">
                     <span class="stat-label">Total Products</span>
                     <div class="stat-value"><?= number_format($totalProducts) ?></div>

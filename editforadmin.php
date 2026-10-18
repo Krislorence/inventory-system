@@ -1,8 +1,14 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['user'])) {
+    header("Location: register.php");
+    exit();
+}
 include "db.php";
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-$result = mysqli_query($conn, "SELECT * FROM kangkong_tb WHERE id=$id");
+$result = mysqli_query($conn, "SELECT * FROM kriskong_tb WHERE id=$id");
 $item = mysqli_fetch_assoc($result);
 if (!$item) {
     header("Location: inventoryforadmin.php");
@@ -19,7 +25,7 @@ if (isset($_POST['save'])) {
     $updated_by = mysqli_real_escape_string($conn, $_POST['updated_by']);
     $last_updated = date('Y-m-d H:i:s');
 
-    $sql = "UPDATE kangkong_tb
+    $sql = "UPDATE kriskong_tb
             SET item_name='$item_name', 
                 category='$category', 
                 quantity=$quantity, 
@@ -50,6 +56,58 @@ if (isset($_POST['save'])) {
 <body>
 
     <div class="app-container">
+        <aside class="sidebar">
+            <div>
+                <a href="additem.php" class="btn-new-item-active">
+                    <i class="fa-solid fa-plus"></i> New Item
+                </a>
+
+                <ul class="nav-menu">
+                    <li>
+                        <a href="index.php" class="nav-link">
+                            <i class="fa-solid fa-chart-pie"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="view.php" class="nav-link">
+                            <i class="fa-solid fa-box-archive"></i>
+                            Inventory Records
+                        </a>
+                    </li>
+                    <li>
+                        <a href="viewreports.php" class="nav-link">
+                            <i class="fa-solid fa-chart-line"></i>
+                            Reports
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="about.php" class="nav-link">
+                            <i class="fa-solid fa-circle-info"></i>
+                            About Us
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.php" class="nav-link">
+                            <i class="fa-solid fa-gear"></i>
+                            Accout Settings
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <div class="sidebar-widget">
+                    <p><strong>System Status</strong></p>
+                    <p class="widget-sub">All services operational.</p>
+                </div>
+
+                <a href="logout.php" class="logout-link" onclick="return confirm('Sigurado kana dyan??')">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                </a>
+            </div>
+        </aside>
         <main class="main-content">
             <header class="top-bar">
                 <div class="user-greeting">

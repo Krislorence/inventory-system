@@ -1,21 +1,25 @@
 <?php
 session_start();
-include "database.php";
+include "db.php";
+if (isset($_SESSION['user'])) {
+    header("Location: dashboardforadmin.php");
+    exit();
+}
 $error = "";
 
 if (isset($_POST['login_btn'])) {
     $username = mysqli_real_escape_string($conn, trim($_POST['username']));
     $password = mysqli_real_escape_string($conn, trim($_POST['password']));
 
-    $sql = "SELECT * FROM userr WHERE username='$username' AND password='$password'";
+    $sql = "SELECT * FROM yosir WHERE username='$username' AND password='$password'";
     $result = mysqli_query($conn, $sql);
 
-    if (mysqli_num_rows($result) > 0) {
+    if ($result && mysqli_num_rows($result) > 0) {
         $_SESSION['user'] = $username;
         header("Location: dashboardforadmin.php");
         exit();
     } else {
-        echo  "<script>alert('loko mali username/pass mo!');</script>";
+        $error = "Enggg Maliiiii ang Username, Fullname, o Password Mooo!";
     }
 }
 ?>
@@ -32,9 +36,6 @@ if (isset($_POST['login_btn'])) {
     <div class="login-wrapper">
         <div class="login-box">
             <div class="login-header">
-                <div class="logo-icon">
-                    <img src="logo.png" alt="Logo" style="width: 100px;  vertical-align: middle; margin-left: 0;">
-                </div>
                 <h2>Welcome Admin </h2>
                 <p>Please sign in.</p>
             </div>

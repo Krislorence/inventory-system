@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['user'])) {
+    header("Location: register.php");
+    exit();
+}
 include "db.php";
 ?>
 
@@ -16,22 +22,26 @@ include "db.php";
         body{
             background-color: black;
         }
-        .main-content{
-            background-color: #06a41ea2;;
-        }
         .sidebar .nav-menu a{
             color: black;
         }
         .app-container .sidebar{
-            backgroun-color:  rgba(0, 118, 228, 0.64);
+            background-color: transparent;
         }
 
-        .sidebar .nav-menu a:hover{
+        .nav-link:hover, .nav-link.active {
             color: black;
-            transform: scale(1.1) translateY(-5px);
-            background-color: rgba(10, 155, 22, 0.64);
-            box-shadow: 0 0 25px rgba(0, 228, 34, 0.64);
+            transform: scale(1.0) translateY(-3px);
+            background-color: white;
+            box-shadow: 0 0 25px rgba(212, 212, 214, 0.64);
         }
+
+        .nav-link:hover{
+            color: black;
+            transform: scale(1.0) translateY(-3px);
+            background-color: white;
+            box-shadow: 0 0 25px rgba(212, 212, 214, 0.64);
+            }
         .about-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -39,7 +49,7 @@ include "db.php";
         }
 
         .about-card {
-            background: #ffffff;
+            background: white;
             border-radius: 16px;
             padding: 28px;
             border: 1px solid #1515b7;
@@ -79,7 +89,7 @@ include "db.php";
             gap: 10px;
             font-size: 13px;
             color: #07090b;
-            background: #f8fafc;
+            background: transparent;
             padding: 12px;
             border-radius: 10px;
             border: 1px solid #2b2e35;
@@ -87,8 +97,8 @@ include "db.php";
         .feature-item:hover{
             color: black;
             transform: scale(1.0) translateY(-5px);
-            background-color: rgba(10, 155, 22, 0.64);
-            box-shadow: 0 0 25px rgba(0, 228, 34, 0.64);
+            background: lightyellow;
+            box-shadow: 0 0 25px rgba(201, 228, 0, 0.64);
         }
 
         .feature-item i {
@@ -103,8 +113,8 @@ include "db.php";
         }
 
         .tech-badge {
-            background: #eff6ff;
-            color: #2563eb;
+            background: transparent;
+            color: black;
             padding: 6px 12px;
             border-radius: 20px;
             font-size: 12px;
@@ -115,9 +125,9 @@ include "db.php";
         }
         .tech-badge:hover{
             color: black;
-            transform: scale(1.1) translateY(-5px);
-            background-color: rgba(10, 155, 22, 0.64);
-            box-shadow: 0 0 25px rgba(0, 228, 34, 0.64);
+            transform: scale(1.0) translateY(-5px);
+            background: lightyellow;
+            box-shadow: 0 0 25px rgba(201, 228, 0, 0.64);
         }
         .team-list {
             list-style: none;
@@ -137,10 +147,10 @@ include "db.php";
         }
 
         .team-member:hover {
-            color: black;
-            transform: scale(1.1) translateY(-5px);
-            background-color: rgba(10, 155, 22, 0.64);
-            box-shadow: 0 0 25px rgba(0, 228, 34, 0.64);
+           color: black;
+            transform: scale(1.0) translateY(-5px);
+            background: lightyellow;
+            box-shadow: 0 0 25px rgba(201, 228, 0, 0.64);
         }
 
         .member-info h4 {
@@ -154,15 +164,15 @@ include "db.php";
             margin: 0;
         }
         .btn-new-item{
-            background-color: rgba(0, 118, 228, 0.64);
+            background-color: rgba(191, 225, 20, 0.749);
 
         }
 
         .btn-new-item:hover{
             color: black;
             transform: scale(1.1) translateY(-5px);
-            background-color: rgba(0, 118, 228, 0.64);
-            box-shadow: 0 0 25px rgba(0, 42, 228, 0.64);
+            background-color: white;
+            box-shadow: 0 0 25px rgba(247, 247, 246, 0.64);
         }
 
         .logout-link{
@@ -175,6 +185,8 @@ include "db.php";
             background-color: rgba(228, 0, 11, 0.64);
             box-shadow: 0 0 25px rgba(228, 0, 0, 0.64);
         }
+
+        
     </style>
 </head>
 <body>
@@ -182,9 +194,6 @@ include "db.php";
     <div class="app-container">
         <aside class="sidebar">
             <div class="haha">
-                <div class="brand-logo">
-                    <h2>Inventory System</h2>
-                </div>
 
                 <a href="additemforadmin.php" class="btn-new-item">
                     <i class="fa-solid fa-plus"></i> New Item
@@ -224,7 +233,7 @@ include "db.php";
             </div>
 
             <div>
-                <a href="register.php" class="logout-link" onclick="return confirm('sure kana dyan yah?')">
+                <a href="logout.php" class="logout-link" onclick="return confirm('sure kana dyan yah?')">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
                 </a>
             </div>
@@ -241,7 +250,7 @@ include "db.php";
             <div class="about-grid">
                 <div>
                     <div class="about-card">
-                        <h2><i class="fa-solid fa-circle" style="color: #06a41ea2;"></i> Project Overview</h2>
+                        <h2><i class="fa-solid fa-circle" style="color: black;"></i> Project Overview</h2>
                         <p>
                              <strong>This Inventory System</strong> is one of a modern web-based solution designed to be fast, reliable, and easy to use for tracking items hehe
                         </p>
@@ -250,7 +259,7 @@ include "db.php";
                         </p>
                     </div>
                     <div class="about-card">
-                        <h2><i class="fa-solid fa-circle" style="color: #06a41ea2;" ></i>Features</h2>
+                        <h2><i class="fa-solid fa-circle" style="color: black;" ></i>Features</h2>
                         <div class="feature-list">
                             <div class="feature-item">
                                  Real-time Dashboard
@@ -267,7 +276,7 @@ include "db.php";
                         </div>
                     </div>
                     <div class="about-card">
-                        <h2><i class="fa-solid fa-circle" style="color:  #06a41ea2;" ></i>Tech Stack Used</h2>
+                        <h2><i class="fa-solid fa-circle" style="color:  black;" ></i>Tech Stack Used</h2>
                         <div class="tech-badges">
                             <span class="tech-badge"> PHP </span>
                             <span class="tech-badge"> MySQL</span>
@@ -279,7 +288,7 @@ include "db.php";
                 </div>
                 <div>
                     <div class="about-card">
-                        <h2><i class="fa-solid fa-circle" style="color: #06a41ea2;" ></i> Group Members</h2>
+                        <h2><i class="fa-solid fa-circle" style="color: black;" ></i> Group Members</h2>
                         <ul class="team-list">
                             <li class="team-member">
                                 <div class="member-info">
@@ -308,7 +317,7 @@ include "db.php";
                         </ul>
                     </div>
                     <div class="about-card">
-                        <h2><i class="fa-solid fa-circle" style="color: #06a41ea2;" ></i> Academic Info</h2>
+                        <h2><i class="fa-solid fa-circle" style="color: black;" ></i> Academic Info</h2>
                         <p style="font-size: 13px; margin-bottom: 6px;"><strong>Course:</strong> BSIT 3E</p>
                         <p style="font-size: 13px; margin-bottom: 6px;"><strong>Subject:</strong> Integration Programming and Technologies 2</p>
                         <p style="font-size: 13px; margin-bottom: 0;"><strong>School:</strong> CCDI LEGAZPI</p>

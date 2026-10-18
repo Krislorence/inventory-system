@@ -1,7 +1,10 @@
 <?php
 session_start();
 include "db.php";
-
+if (isset($_SESSION['user'])) {
+    header("Location: index.php");
+    exit();
+}
 $error = "";
 
 if (isset($_POST['login_btn'])) {
@@ -9,7 +12,7 @@ if (isset($_POST['login_btn'])) {
     $password = mysqli_real_escape_string($conn, trim($_POST['password']));
     $fullname = mysqli_real_escape_string($conn, trim($_POST['fullname']));
 
-    $sql = "SELECT * FROM userss WHERE username='$username' AND password='$password' AND fullname='$fullname'";
+    $sql = "SELECT * FROM yuserr WHERE username='$username' AND password='$password' AND fullname='$fullname'";
     $result = mysqli_query($conn, $sql);
 
     if ($result && mysqli_num_rows($result) > 0) {
@@ -21,6 +24,7 @@ if (isset($_POST['login_btn'])) {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

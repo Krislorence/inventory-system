@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($item_name) || empty($category) || empty($updated_by) || $quantity < 0 || $price < 0) {
         $error = "Please fill all required fields correctly!";
     } else {
-        $sql = "INSERT INTO kangkong_tb (item_name, category, quantity, price, last_updated, updated_by) 
+        $sql = "INSERT INTO kriskong_tb (item_name, category, quantity, price, last_updated, updated_by) 
                 VALUES ('$item_name', '$category', $quantity, $price, '$last_updated', '$updated_by')";
         
         if (mysqli_query($conn, $sql)) {
@@ -37,6 +37,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
     <div class="app-container">
+        <aside class="sidebar">
+            <div>
+                <a href="additem.php" class="btn-new-item-active">
+                    <i class="fa-solid fa-plus"></i> New Item
+                </a>
+
+                <ul class="nav-menu">
+                    <li>
+                        <a href="dashboardforadmin.php" class="nav-link">
+                            <i class="fa-solid fa-chart-pie"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="inventoryforadmin.php" class="nav-link">
+                            <i class="fa-solid fa-box-archive"></i>
+                            Inventory Records
+                        </a>
+                    </li>
+                    <li>
+                        <a href="reportforadmin.php" class="nav-link">
+                            <i class="fa-solid fa-chart-line"></i>
+                            Reports
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="viewregisteruser.php" class="nav-link">
+                            <i class="fas fa-users-cog"></i> User Management
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settingsforadmin.php" class="nav-link">
+                            <i class="fa-solid fa-gear"></i>
+                            Accout Settings
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <div class="sidebar-widget">
+                    <p><strong>System Status</strong></p>
+                    <p class="widget-sub">All services operational.</p>
+                </div>
+
+                <a href="logout.php" class="logout-link" onclick="return confirm('Sigurado kana dyan??')">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                </a>
+            </div>
+        </aside>
         <main class="main-content">
             <header class="top-bar">
                 <div class="user-greeting">
@@ -45,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <div class="header-actions">
-                    <a href="inventoryforadmin.php" class="btn-secondary"> View Records
+                    <a href="view.php" class="btn-secondary"> View Records
                     </a>
                 </div>
             </header>
@@ -117,7 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <button type="submit" name="save" class="btn-submit">
                         Save Item
                         </button>
-                        <a href="inventoryforadmin.php" class="btn-cancel">Cancel</a>
+                        <a href="view.php" class="btn-cancel">Cancel</a>
                     </div>
                 </form>
             </section>
@@ -125,7 +176,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <footer class="app-footer">
                 <p>&copy; 2026 CCDI LEGAZPI BSIT-3E Midterm | Designed by Kris Lorence L. Chan, Cj Maquiñana, Efren Añunuevo, John Matthew Recuenco </p>
                 </footer>
-
         </main>
     </div>
 

@@ -1,13 +1,19 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['user'])) {
+    header("Location: register.php");
+    exit();
+}
 include "db.php";
 
 $search = isset($_GET['search']) ? mysqli_real_escape_string($conn, $_GET['search']) : '';
 $whereClause = $search ? "WHERE item_name LIKE '%$search%' OR category LIKE '%$search%' OR updated_by LIKE '%$search%'" : "";
 
-$countResult = mysqli_query($conn, "SELECT COUNT(*) as total FROM kangkong_tb $whereClause");
+$countResult = mysqli_query($conn, "SELECT COUNT(*) as total FROM kriskong_tb $whereClause");
 $totalRecords = mysqli_fetch_assoc($countResult)['total'];
 
-$sql = "SELECT * FROM kangkong_tb $whereClause ORDER BY last_updated DESC";
+$sql = "SELECT * FROM kriskong_tb $whereClause ORDER BY last_updated DESC";
 $result = mysqli_query($conn, $sql);
 ?>
 
@@ -26,9 +32,6 @@ $result = mysqli_query($conn, $sql);
     <div class="app-container">
         <aside class="sidebar">
             <div>
-                <div class="brand-logo">
-                    <h2>Inventory System</h2>
-                </div>
 
                 <a href="additemforadmin.php" class="btn-new-item">
                     <i class="fa-solid fa-plus"></i> New Item
@@ -73,7 +76,7 @@ $result = mysqli_query($conn, $sql);
                     <p class="widget-sub">All services operational.</p>
                 </div>
 
-                <a href="register.php" class="logout-link" onclick="return confirm('Sigurado ka bang gusto mong mag-logout?')">
+                <a href="logout.php" class="logout-link" onclick="return confirm('Sigurado ka bang gusto mong mag-logout?')">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
                 </a>
             </div>

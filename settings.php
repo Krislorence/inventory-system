@@ -1,17 +1,22 @@
 <?php
 session_start();
+
+if (!isset($_SESSION['user'])) {
+    header("Location: register.php");
+    exit();
+}
 include "database.php";
 
 $message = "";
 $error = "";
 $user_id = $_SESSION['user_id'] ?? 1;
-$query = mysqli_query($conn, "SELECT * FROM userss WHERE id = '$user_id'");
+$query = mysqli_query($conn, "SELECT * FROM yuserr WHERE id = '$user_id'");
 $user = mysqli_fetch_assoc($query);
 if (isset($_POST['update_profile'])) {
     $fullname = mysqli_real_escape_string($conn, $_POST['fullname']);
     $username = mysqli_real_escape_string($conn, $_POST['username']);
 
-    $update_profile = "UPDATE userss SET fullname='$fullname', username='$username' WHERE id='$user_id'";
+    $update_profile = "UPDATE yuserr SET fullname='$fullname', username='$username' WHERE id='$user_id'";
     if (mysqli_query($conn, $update_profile)) {
         $message = "All goods na-update muna ang Profile mo!";
         $user['fullname'] = $fullname;
@@ -30,7 +35,7 @@ if (isset($_POST['update_password'])) {
     } elseif ($new_pass !== $confirm_pass) {
         $error = "Itama mo nganiii!";
     } else {
-        $update_pass = "UPDATE userss SET password='$new_pass' WHERE id='$user_id'";
+        $update_pass = "UPDATE yuserr SET password='$new_pass' WHERE id='$user_id'";
         if (mysqli_query($conn, $update_pass)) {
             $message = "Ayownnn nays oneee!";
             $user['password'] = $new_pass;
@@ -53,9 +58,6 @@ if (isset($_POST['update_password'])) {
     <div class="app-container">
         <aside class="sidebar">
             <div class="haha">
-                <div class="brand-logo">
-                    <h2>Inventory System</h2>
-                </div>
 
                 <a href="additem.php" class="btn-new-item">
                     <i class="fa-solid fa-plus"></i> New Item
@@ -97,7 +99,7 @@ if (isset($_POST['update_password'])) {
             </div>
 
             <div>
-                <a href="register.php" class="logout-link" onclick="return confirm('sure kana dyan yah?')">
+                <a href="logout.php" class="logout-link" onclick="return confirm('sure kana dyan yah?')">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
                 </a>
             </div>

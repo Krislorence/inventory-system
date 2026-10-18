@@ -1,23 +1,32 @@
 <?php
+session_start();
 include "database.php";
+
+// HARANG: Kapag naka-login na ang user, hindi na rin kailangan pumunta sa register page
+if (isset($_SESSION['user'])) {
+    header("Location: index.php");
+    exit();
+}
 
 $success = $error = "";
 
 if (isset($_POST['register_btn'])) {
     $username = mysqli_real_escape_string($conn, trim($_POST['username']));
     $password = mysqli_real_escape_string($conn, trim($_POST['password']));
-     $fullname = mysqli_real_escape_string($conn, trim($_POST['fullname']));
+    $fullname = mysqli_real_escape_string($conn, trim($_POST['fullname']));
     
     if (empty($username) || empty($password) || empty($fullname)) {
         $error = "Please fill all fields!";
     } else {
-        $check = mysqli_query($conn, "SELECT * FROM userss WHERE username='$username' AND password='$password' AND fullname='$fullname'");
+        $check = mysqli_query($conn, "SELECT * FROM yuserr WHERE username='$username'");
         if (mysqli_num_rows($check) > 0) {
             $error = "Username already exists!";
         } else {
-            $sql = "INSERT INTO userss (username, password, fullname) VALUES ('$username', '$password', '$fullname')";
+            $sql = "INSERT INTO yuserr (username, password, fullname) VALUES ('$username', '$password', '$fullname')";
             if (mysqli_query($conn, $sql)) {
-                echo "<script>alert('Registered successfully!'); window.location='index.php';</script>";
+                $_SESSION['is_registered'] = true;
+                echo "<script>alert('Registered successfully! Please login.'); window.location='login.php';</script>";
+                exit();
             } else {
                 $error = "Registration failed: " . mysqli_error($conn);
             }
@@ -25,7 +34,6 @@ if (isset($_POST['register_btn'])) {
     }
 }
 ?>
-
 
 
 <!DOCTYPE html>
